@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/common.js"></script>
+    <title>用户钱包查询</title>
+</head>
+
+<body>
+<div class="header">
+    <h1 class="systemname">资源管理系统</h1>
+    <div class="header-info">
+        <h1 class="user">用户，<span class="userstatus">状态</span></h1>
+        <a class="exitbtn">退出系统</a>
+    </div>
+</div>
+<div class="container">
+    <div class="nav">
+        <ul class="nav-item">
+            <h1 class="nav-item-title">用户</h1>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/userwallet')">钱包查询</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/userfix')">报修单填写</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/userrecord')">月度能源消费记录查询</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/recordyear')">年度能源消费记录查询</li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="oparebtn">
+            <div class="oparebtn-r">
+                <a class="oparebtn-item oparebtn-primary oparebtn-add fn-add">充值</a>
+            </div>
+        </div>
+        <form action="/userwallet">
+        <table class="tablegrid">
+            <col width="30" />
+            <thead>
+            <tr>
+                <th><input type="checkbox" /></th>
+                <th>用户账号</th>
+                <th>充值金额（元）</th>
+                <th>余额</th>
+                <th>欠费总计</th>
+                <th>充值日期</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="userwallet:${walletlist}">
+                <td><input type="checkbox" /></td>
+                <td th:text="${userwallet.u_id}" id="u_id" name="u_id"></td>
+                <td th:text="${userwallet.u_charge}"></td>
+                <td th:text="${userwallet.u_less}"></td>
+                <td th:text="${userwallet.u_unpay}"></td>
+                <td th:text="${userwallet.u_time}"></td>
+            </tr>
+
+            </tbody>
+        </table>
+        </form>
+        <div class="oparebtn">
+            <a class="oparebtn-item oparebtn-delete">批量删除</a>
+            <div class="oparebtn-r">
+                <a class="oparebtn-item oparebtn-primary">上一页</a>
+                <a class="oparebtn-item oparebtn-primary">下一页</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cover">
+    <div class="openwin">
+        <h1 class="openwin-title">充值</h1>
+        <form action="/usercharge">
+        <table class="openwin-table">
+            <tr>
+                <th>充值账户：</th>
+               <td> <input type="text" th:value="${userid}" class="form-control" id="userid" name="userid" ></td>
+            </tr>
+            <tr>
+                <th>充值金额：</th>
+                <td><input type="text"  th:value="${charge}" class="form-control" id="charge" name="charge" ></td>
+            </tr>
+
+        </table>
+        <div class="oparebtn">
+            <div class="oparebtn-r">
+                <a class="oparebtn-item oparebtn-cancel fn-cancel">取消</a>
+                <input id="queren" class="oparebtn-item oparebtn-cancel fn-cancel" type="submit" value="提交" />
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    window.onload=function(){
+        var btnSubEle = document.getElementById("queren");
+        btnSubEle.onclick =function(){
+            var userid = document.getElementById("userid").value;
+            if(userid == "" || userid == null ){
+                alert("充值账号不能为空");
+                return false;
+            }
+            var charge = document.getElementById("charge").value;
+            if(charge == "" || charge == null ){
+                alert("充值金额不能为空");
+                return false;
+            }
+        }
+    }
+</script>
+</body>
+
+</html>

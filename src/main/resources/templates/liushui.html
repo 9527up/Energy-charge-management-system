@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/common.js"></script>
+    <title>流水录入</title>
+</head>
+
+<body>
+<div class="header">
+    <h1 class="systemname">资源管理系统</h1>
+    <div class="header-info">
+        <h1 class="user">用户，<span class="userstatus">状态</span></h1>
+        <a class="exitbtn">退出系统</a>
+    </div>
+</div>
+<div class="container">
+    <div class="nav">
+        <ul class="nav-item">
+            <h1 class="nav-item-title">管理员</h1>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/goliushui')">流水录入</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/weixiudan')">维修单审批</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/nengyuan')">能源价格修改</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/indebt')">用户欠费情况</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/adworker')">维修工信息</li>
+
+        </ul>
+    </div>
+    <div class="content" >
+        <form action="/liushui">
+            <table class="tablegrid">
+                <col width="30" />
+                <thead>
+                <th>用户编号</th>
+                <th>能源种类</th>
+                <th>本月消费（度/立方）</th>
+                <th>上月消费（度/立方）</th>
+                <th>本月费用</th>
+                </thead>
+                <tbody>
+                <td ><input class="input" type ="text" th:value="${u_id}" id="u_id" name="u_id"/></td>
+                <td ><input class="input" type ="text" th:value="${n_name}" id="n_name" name="n_name"/></td>
+                <td ><input class="input" type ="text" th:value="${u_this}" id="u_this" name="u_this"/></td>
+                <td ><input class="input" type ="text" th:value="${u_last}" id="u_last" name="u_last"/></td>
+                <td ><input class="input" type ="text" th:value="${u_fee}" id="u_fee" name="u_fee"/></td>
+                </tbody>
+            </table>
+            <div class="oparebtn">
+                <div class="oparebtn-r">
+                    <input id="queren" class="oparebtn-item oparebtn-cancel fn-cancel" type="submit" value="提交" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    window.onload=function(){
+        var btnSubEle = document.getElementById("queren");
+        btnSubEle.onclick =function(){
+            var uid = document.getElementById("u_id").value;
+            if(uid == "" || uid == null ){
+                alert("用户账号不能为空");
+                return false;
+            }
+            var name = document.getElementById("n_name").value;
+            if(name == "" || name == null ){
+                alert("能源名称不能为空");
+                return false;
+            }
+            var uthis = document.getElementById("u_this").value;
+            if(uthis == "" || uthis == null ){
+                alert("本月消费不能为空");
+                return false;
+            }
+            var ulast = document.getElementById("u_last").value;
+            if(ulast == "" || ulast == null ){
+                alert("上月不能为空");
+                return false;
+            }
+            var ufee = document.getElementById("u_fee").value;
+            if(ufee == "" || ufee == null ){
+                alert("月消费金额不能为空");
+                return false;
+            }
+            alert("用户消费记录上传成功");
+            return true;
+
+        }
+    }
+</script>
+</body>
+
+</html>

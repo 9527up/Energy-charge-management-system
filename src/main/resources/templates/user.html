@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<script src="js/jquery-2.0.3.min.js"></script>
+	<script src="js/common.js"></script>
+	<title>用户信息</title>
+</head>
+
+<body>
+	<div class="header">
+		<h1 class="systemname">资源管理系统</h1>
+		<div class="header-info">
+			<h1 class="user">用户，<span class="userstatus">已登录</span></h1>
+			<a class="exitbtn">退出系统</a>
+		</div>
+	</div>
+	<div class="container">
+		<div class="nav">
+			<ul class="nav-item">
+				<h1 class="nav-item-title">用户</h1>
+				<li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/usergologin')">基本资料</li>
+				<li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/userwallet')">钱包查询</li>
+				<li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/userfix')">报修单填写</li>
+				<li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/userrecord')">月度能源消费记录查询</li>
+				<li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/recordyear')">年度能源消费记录查询</li></ul>
+		</div>
+		<div class="content">
+			<div class="oparebtn">
+				<div class="oparebtn-r">
+					<a class="oparebtn-item oparebtn-primary oparebtn-add fn-add">修改</a>
+				</div>
+			</div>
+			<table class="tablegrid">
+				<col width="30" />
+				<thead>
+					<tr>
+						<th><input type="checkbox" /></th>
+						<th>用户编号</th>
+						<th>姓名</th>
+						<th>密码</th>
+						<th>电话</th>
+						<th>地址</th>
+						<th>单位</th>
+					</tr>
+				</thead>
+                    <tr th:each="user:${userlist}">
+						<td><input type="checkbox" /></td>
+						<td th:text="${user.u_id}" id="u_id" name="u_id"></td>
+						<td th:text="${user.u_name}"></td>
+						<td th:text="${user.u_pass}"></td>
+						<td th:text="${user.u_tel}"></td>
+						<td th:text="${user.u_company}"></td>
+						<td th:text="${user.u_address}"></td>
+						<button class="btn btn-info">修改</button>
+					</tr>
+				</tbody>
+			</table>
+			<div class="oparebtn">
+				<a class="oparebtn-item oparebtn-delete">批量删除</a>
+			</div>
+		</div>
+	</div>
+	<div class="cover">
+		<form action="/userupdate">
+		<div class="openwin">
+			<h1 class="openwin-title">修改信息(如果只需要修改其中一项或几项，其余项也要填上原来的值，不能为空</h1>
+			<table class="openwin-table">
+				<thead>
+				<th>账号：</th>
+				<th>姓名：</th>
+				<th>密码：</th>
+				<th>公司：</th>
+				<th>电话：</th>
+				<th>住址：</th>
+				</thead>
+				<tbody>
+					<td th:text="${u_id}" id="u_id" name="u_id"></td>
+					<td ><input type ="text" th:value="${u_name}" id="u_name" name="u_name"/></td>
+					<td ><input type ="text" th:value="${u_pass}" id="u_pass" name="u_pass"/></td>
+					<td ><input type ="text" th:value="${u_company}" id="u_company" name="u_company"/></td>
+					<td ><input type ="text" th:value="${u_tel}" id="u_tel" name="u_tel"/></td>
+					<td ><input type ="text" th:value="${u_address}" id="u_address" name="u_address"/></td>
+				</tbody>
+			</table>
+			<div class="oparebtn">
+				<div class="oparebtn-r">
+					<a class="oparebtn-item oparebtn-cancel fn-cancel">取消</a>
+					<input id="queren" class="oparebtn-item oparebtn-primary fn-commit" type="submit" value="提交" />
+				</div>
+			</div>
+			</tr>
+			</form>
+		</div>
+
+	</div>
+</body>
+<script type="text/javascript">
+	window.onload=function(){
+		var btnSubEle = document.getElementById("queren");
+		btnSubEle.onclick =function(){
+
+			var wpass = document.getElementById("u_pass").value;
+			if(wpass == "" || wpass == null ){
+				alert("更新密码不能为空");
+				return false;
+			}
+			var wname = document.getElementById("u_name").value;
+			if(wname == "" || wname == null ){
+				alert("姓名不能为空");
+				return false;
+			}
+			var wtel = document.getElementById("u_company").value;
+			if(wtel == "" || wtel == null ){
+				alert("公司不能为空");
+				return false;
+			}
+			var wtel = document.getElementById("u_tel").value;
+			if(wtel == "" || wtel == null ){
+				alert("电话不能为空");
+				return false;
+			}
+			var wzhuangtai = document.getElementById("u_address").value;
+			if(wzhuangtai == "" || wzhuangtai == null ){
+				alert("住址不能为空");
+				return false;
+			}
+		}
+	}
+</script>
+</html>

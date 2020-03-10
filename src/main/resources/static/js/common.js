@@ -1,0 +1,11 @@
+$(function(){
+    $(".fn-add").click(function(){
+        $(".cover").show();  
+    })
+    $(".fn-commit").click(function(){
+        $(".cover").hide();
+    })
+    $(".fn-cancel").click(function(){
+        $(".cover").hide();
+    })
+})

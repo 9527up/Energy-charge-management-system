@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/common.js"></script>
+    <title>用户欠费情况</title>
+</head>
+
+<body>
+<div class="header">
+    <h1 class="systemname">资源管理系统</h1>
+    <div class="header-info">
+        <h1 class="user">管理员，<span class="userstatus">已登陆</span></h1>
+        <a class="exitbtn">退出系统</a>
+    </div>
+</div>
+<div class="container">
+    <div class="nav">
+        <ul class="nav-item">
+            <h1 class="nav-item-title">管理员</h1>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/goliushui')">流水录入</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/weixiudan')">维修单审批</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/nengyuan')">能源价格修改</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/indebt')">用户欠费情况</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/adworker')">维修工信息</li>
+
+        </ul>
+    </div>
+    <div class="content">
+        <div class="oparebtn">
+            <div class="oparebtn-r">
+
+            </div>
+        </div>
+        <form action="/indebt">
+            <table class="tablegrid">
+                <col width="30" />
+                <thead>
+                <tr>
+                    <th><input type="checkbox" /></th>
+                    <th>用户账号</th>
+                    <th>欠费金额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="indebt:${indebtlist}">
+                    <td><input type="checkbox" /></td>
+                    <td th:text="${indebt.u_id}" id="u_id" name="u_id"></td>
+                    <td th:text="${indebt.u_fee}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="oparebtn">
+            <div class="oparebtn-r">
+                <a class="oparebtn-item oparebtn-primary">上一页</a>
+                <a class="oparebtn-item oparebtn-primary">下一页</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

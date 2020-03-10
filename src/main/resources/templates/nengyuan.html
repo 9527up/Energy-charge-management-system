@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<script src="js/jquery-2.0.3.min.js"></script>
+	<script src="js/common.js"></script>
+	<title>能源信息</title>
+</head>
+
+<body>
+	<div class="header">
+		<h1 class="systemname">资源管理系统</h1>
+		<div class="header-info">
+			<h1 class="user">管理员，<span class="userstatus">状态</span></h1>
+			<a class="exitbtn">退出系统</a>
+		</div>
+	</div>
+	<div class="container">
+		<div class="nav">
+			<ul class="nav-item">
+				<h1 class="nav-item-title">管理员</h1>
+				<li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/goliushui')">流水录入</li>
+				<li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/weixiudan')">维修单审批</li>
+				<li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/nengyuan')">能源价格修改</li>
+				<li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/indebt')">用户欠费情况</li>
+				<li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/adworker')">维修工信息</li>
+			</ul>
+		</div>
+		<div class="content">
+			<div class="oparebtn">
+				<div class="oparebtn-r">
+					<a class="oparebtn-item oparebtn-primary oparebtn-add fn-add">能源增删</a>
+				</div>
+			</div>
+			<form action="/nengyuan">
+			<table class="tablegrid">
+				<col width="30" />
+				<thead>
+					<tr>
+						<th><input type="checkbox" /></th>
+						<th>能源编号</th>
+						<th>名称</th>
+						<th>价格(元)</th>
+						<th>上一次改价月份</th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr th:each="nengyuan:${nengyuanlist}">
+					<td><input type="checkbox" /></td>
+					<td th:text="${nengyuan.n_id}" id="n_id" name="n_id"></td>
+					<td th:text="${nengyuan.n_name}"></td>
+					<td th:text="${nengyuan.n_price}"></td>
+					<td th:text="${nengyuan.n_last}"></td>
+				</tr>
+				</tbody>
+			</table>
+			</form>
+			<div class="oparebtn">
+				<a class="oparebtn-item oparebtn-delete">批量删除</a>
+				<div class="oparebtn-r">
+					<a class="oparebtn-item oparebtn-primary">上一页</a>
+					<a class="oparebtn-item oparebtn-primary">下一页</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="cover">
+		<div class="openwin">
+			<h1 class="openwin-title">增删</h1>
+			<h2 class="openwin-title">增加</h2>
+            <form action="/nengyuanadd">
+			<table class="openwin-table">
+				<tr>
+					<th>能源编号：</th>
+					<td><input type ="text" th:value="${n_id}" name="1n_id1" id="1n_id1"/></td>
+				</tr>
+				<tr>
+					<th>名称：</th>
+					<td><input type="text" th:value="${n_name}"  id="1n_name1" name="1n_name1" /></td>
+				</tr>
+				<tr>
+					<th>价格：</th>
+					<td><input type="text" th:value="${n_price}"  id="1n_price1" name="1n_price1"/></td>
+				</tr>
+			</table>
+			<div class="oparebtn">
+				<div class="oparebtn-r">
+					<a class="oparebtn-item oparebtn-cancel fn-cancel">取消</a>
+					<input id="queren1" class="oparebtn-item oparebtn-cancel fn-cancel" type="submit" value="提交" />
+				</div>
+			</div>
+			</form>
+			<h2 class="openwin-title">删除</h2>
+           <form action="/nengyuandelete">
+			<table class="openwin-table">
+				<tr>
+					<th>能源编号：</th>
+					<td><input type ="text" th:value="${n_id1}" name="1n_id2" id="1n_id2"/></td>
+				</tr>
+			</table>
+			<div class="oparebtn">
+				<div class="oparebtn-r">
+					<a class="oparebtn-item oparebtn-cancel fn-cancel">取消</a>
+					<input id="queren2" class="oparebtn-item oparebtn-cancel fn-cancel" type="submit" value="提交" />
+				</div>
+			</div>
+		</form>
+			</form>
+			<h3 class="openwin-title">价格修改</h3>
+			<form action="/price">
+				<table class="openwin-table">
+					<tr>
+						<th>能源编号：</th>
+						<td><input type ="text" th:value="${n_id3}" name="1n_id3" id="1n_id3"/></td>
+					</tr>
+					<tr>
+						<th>能源名称：</th>
+						<td><input type ="text" th:value="${n_name3}" name="1n_name3" id="1n_name3"/></td>
+					</tr>
+					<tr>
+						<th>能源新价格：</th>
+						<td><input type ="text" th:value="${n_price3}" name="1n_price3" id="1n_price3"/></td>
+					</tr>
+				</table>
+				<div class="oparebtn">
+					<div class="oparebtn-r">
+						<a class="oparebtn-item oparebtn-cancel fn-cancel">取消</a>
+						<input id="queren3" class="oparebtn-item oparebtn-cancel fn-cancel" type="submit" value="提交" />
+					</div>
+				</div>
+			</form>
+	</div>
+
+		<script type="text/javascript">
+			window.onload=function(){
+				var btnSubEle3 = document.getElementById("queren3");
+				btnSubEle3.onclick =function(){
+					var nid3 = document.getElementById("1n_id3").value;
+					if(nid3 == "" || nid3 == null ){
+						alert("能源ID不能为空");
+						return false;
+					}
+					var name3 = document.getElementById("1n_name3").value;
+					if(name3 == "" || name3 == null ){
+						alert("能源名称不能为空");
+						return false;
+					}
+					var nprice3 = document.getElementById("1n_price3").value;
+					if(nprice3 == "" || nprice3 == null ){
+						alert("能源价格不能为空");
+						return false;
+					}
+
+
+				}
+			}
+			window.onload=function(){
+				var btnSubEle2 = document.getElementById("queren2");
+				btnSubEle.onclick =function(){
+					var nid2 = document.getElementById("1n_id2").value;
+					if(nid2 == "" || nid2 == null ){
+						alert("能源ID不能为空");
+						return false;
+					}
+
+				}
+			}
+			window.onload=function(){
+				var btnSubEle1 = document.getElementById("queren1");
+				btnSubEle1.onclick =function(){
+					var nid1 = document.getElementById("1n_id1").value;
+					if(nid1 == "" || nid1 == null ){
+						alert("能源ID不能为空");
+						return false;
+					}
+					var name1 = document.getElementById("1n_name1").value;
+					if(name1 == "" || name1 == null ){
+						alert("能源名称不能为空");
+						return false;
+					}
+					var nprice1 = document.getElementById("1n_price1").value;
+					if(nprice1 == "" || nprice1 == null ){
+						alert("能源价格不能为空");
+						return false;
+					}
+
+
+				}
+			}
+		</script>
+</body>
+
+</html>

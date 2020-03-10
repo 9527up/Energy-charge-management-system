@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/common.js"></script>
+    <title>维修工信息</title>
+</head>
+
+<body>
+<div class="header">
+    <h1 class="systemname">资源管理系统</h1>
+    <div class="header-info">
+        <h1 class="user">管理员，<span class="userstatus">已登陆</span></h1>
+        <a class="exitbtn">退出系统</a>
+    </div>
+</div>
+<div class="container">
+    <div class="nav">
+        <ul class="nav-item">
+            <h1 class="nav-item-title">管理员</h1>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/goliushui')">流水录入</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/weixiudan')">维修单审批</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/nengyuan')">能源价格修改</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/indebt')">用户欠费情况</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/adworker')">维修工信息</li>
+
+        </ul>
+    </div>
+    <div class="content">
+        <div class="oparebtn">
+            <div class="oparebtn-r">
+                <a class="oparebtn-item oparebtn-primary oparebtn-add fn-add">新增</a>
+            </div>
+        </div>
+        <form action="/adworker">
+            <table class="tablegrid">
+                <col width="30" />
+                <thead>
+                <tr>
+                    <th><input type="checkbox" /></th>
+                    <th>工人账号</th>
+                    <th>工人密码</th>
+                    <th>工人姓名</th>
+                    <th>工人电话</th>
+                    <th>工作状态</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="adworker:${adworkerlist}">
+                    <td><input type="checkbox" /></td>
+                    <td th:text="${adworker.w_id}" id="u_id" name="u_id"></td>
+                    <td th:text="${adworker.w_pass}"></td>
+                    <td th:text="${adworker.w_name}"></td>
+                    <td th:text="${adworker.w_tel}"></td>
+                    <td th:text="${adworker.w_zhuangtai}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="oparebtn">
+            <div class="oparebtn-r">
+                <a class="oparebtn-item oparebtn-primary">上一页</a>
+                <a class="oparebtn-item oparebtn-primary">下一页</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cover">
+    <div class="openwin">
+        <h1 class="openwin-title">新增工人</h1>
+        <form action="/workeradd">
+        <table class="openwin-table">
+            <tr>
+                <th>工人账号：</th>
+                <td><input type ="text" th:value="${w_id}" name="w_id" id="w_id"/></td>
+            </tr>
+            <tr>
+                <th>工人密码：</th>
+                <td><input type="text" th:value="${w_pass}"  id="w_pass" name="w_pass" /></td>
+            </tr>
+            <tr>
+                <th>工人姓名：</th>
+                <td><input type="text" th:value="${w_name}"  id="w_name" name="w_name"/></td>
+            </tr>
+            <tr>
+                <th>工人电话：</th>
+                <td><input type="text" th:value="${w_tel}"  id="w_tel" name="w_tel"/></td>
+            </tr>
+            <tr>
+                <th>工作状态：</th>
+                <td><input type="text" th:value="${w_zhuangtai}"  id="w_zhuangtai" name="w_zhuangtai"/></td>
+            </tr>
+        </table>
+        <div class="oparebtn">
+            <div class="oparebtn-r">
+                <a class="oparebtn-item oparebtn-cancel fn-cancel">取消</a>
+                <input id="queren" class="oparebtn-item oparebtn-primary fn-commit" type="submit" value="确认" />
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    window.onload=function(){
+        var btnSubEle = document.getElementById("queren");
+        btnSubEle.onclick =function(){
+            var wid = document.getElementById("w_id").value;
+            if(wid == "" || wid == null ){
+                alert("工人账号不能为空");
+                return false;
+            }
+            var wpass = document.getElementById("w_pass").value;
+            if(wpass == "" || wpass == null ){
+                alert("工人密码不能为空");
+                return false;
+            }
+            var wname = document.getElementById("w_name").value;
+            if(wname == "" || wname == null ){
+                alert("工人姓名不能为空");
+                return false;
+            }
+            var wtel = document.getElementById("w_tel").value;
+            if(wtel == "" || wtel == null ){
+                alert("工人电话不能为空");
+                return false;
+            }
+            var wzhuangtai = document.getElementById("w_zhuangtai").value;
+            if(wzhuangtai == "" || wzhuangtai == null ){
+                alert("工人工作状态不能为空");
+                return false;
+            }
+        }
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/common.js"></script>
+    <title>维修单填写</title>
+</head>
+
+<body>
+<div class="header">
+    <h1 class="systemname">资源管理系统</h1>
+    <div class="header-info">
+        <h1 class="user">用户，<span class="userstatus">状态</span></h1>
+        <a class="exitbtn">退出系统</a>
+    </div>
+</div>
+<div class="container">
+    <div class="nav">
+        <ul class="nav-item">
+            <h1 class="nav-item-title">用户</h1>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/userwallet')">钱包查询</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/userfix')">报修单填写</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/userrecord')">月度能源消费记录查询</li>
+            <li class="nav-item-sub nav-item-sub-active" onclick="window.open('http://localhost:8080/recordbyyear')">年度能源消费记录查询</li>
+        </ul>
+    </div>
+    <div >
+        <form action="/filedweixiudan">
+            <table class="tablegrid">
+            <col width="30" />
+            <thead>
+
+                    <th>用户编号</th>
+                    <th>具体维修内容描述</th>
+                    <th>维修地址</th>
+                    <th>填写时间</th>
+            </thead>
+            <tbody>
+            <td ><input class="input" type ="text" th:value="${u_id}" id="u_id" name="u_id"/></td>
+            <td ><input class="input" type ="text" th:value="${f_content}" id="f_content" name="f_content"/></td>
+            <td ><input class="input" type ="text" th:value="${u_address}" id="u_address" name="u_address"/></td>
+            <td ><input class="input" type ="text" th:value="${f_time}" id="f_time" name="f_time"/></td>
+            </tbody>
+            </table>
+            <div class="oparebtn">
+                <div class="oparebtn-r">
+                    <input id="queren" class="oparebtn-item oparebtn-cancel fn-cancel" type="submit" value="提交" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    window.onload=function(){
+        var btnSubEle = document.getElementById("queren");
+        btnSubEle.onclick =function(){
+            var uid = document.getElementById("u_id").value;
+            if(uid == "" || uid == null ){
+                alert("用户账号不能为空");
+                return false;
+            }
+            var fcontent = document.getElementById("f_content").value;
+            if(fcontent == "" || fcontent == null ){
+                alert("维修内容不能为空");
+                return false;
+            }
+            var uaddress = document.getElementById("u_address").value;
+            if(uaddress == "" || uaddress == null ){
+                alert("地址不能为空");
+                return false;
+            }
+            var ftime = document.getElementById("f_time").value;
+            if(ftime == "" || ftime == null ){
+                alert("时间不能为空");
+                return false;
+            }
+
+        }
+    }
+</script>
+
+</body>
+
+</html>
